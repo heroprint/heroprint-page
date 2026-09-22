@@ -9,3 +9,12 @@ if(window.gsap&&window.ScrollTrigger&&!reduceMotion){
 }
 const form=document.querySelector('#projectForm');
 if(form)form.addEventListener('submit',e=>{e.preventDefault();const note=document.querySelector('#formNote');if(note)note.textContent='Deine Angaben sind vollständig. Der echte Versand wird im nächsten Schritt an E-Mail oder ein Formular-Backend angebunden.';});
+
+const menuToggle=document.querySelector('.menu-toggle');
+const mainNav=document.querySelector('#mainNav');
+if(menuToggle&&mainNav){
+ const closeMenu=()=>{menuToggle.setAttribute('aria-expanded','false');menuToggle.setAttribute('aria-label','Menü öffnen');mainNav.classList.remove('open');document.body.classList.remove('menu-open')};
+ menuToggle.addEventListener('click',()=>{const open=menuToggle.getAttribute('aria-expanded')!=='true';menuToggle.setAttribute('aria-expanded',String(open));menuToggle.setAttribute('aria-label',open?'Menü schließen':'Menü öffnen');mainNav.classList.toggle('open',open);document.body.classList.toggle('menu-open',open)});
+ mainNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()});
+}
