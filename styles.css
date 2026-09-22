@@ -986,13 +986,18 @@ img {
  .nav nav a{width:100%;padding:14px 0;border-bottom:1px solid var(--line);font-size:clamp(24px,8vw,34px);font-weight:800;color:#f4f7fb}
  .nav nav .menu-contact{display:block;margin-top:20px;border:0;color:var(--cyan)}
  body.menu-open{overflow:hidden}
- .model-source{grid-template-columns:1fr;gap:38px;padding:11vh 18px}
+ .model-source{display:block;padding:11vh 18px}
+ .model-source-copy{margin-bottom:38px}
+ .model-browser{display:block!important;width:100%;max-width:100%;visibility:visible!important;opacity:1!important}
  .model-source h2{font-size:clamp(43px,13vw,62px)}
  .model-source .lead{font-size:16px}
  .model-browser{transform:none;border-radius:18px}
- .platform-grid a{min-height:105px;padding:18px 15px}
+ .platform-grid{display:grid!important;grid-template-columns:1fr!important;width:100%}
+ .platform-grid a{display:flex!important;min-height:82px;padding:16px 18px;visibility:visible!important;opacity:1!important}
+ .platform-grid span{font-size:11px}
  .platform-grid b{font-size:16px}
  .platform-grid em{right:14px;top:14px}
- .model-flow{gap:7px;padding:14px 8px;font-size:7px;letter-spacing:.06em}
+ .model-flow{display:grid;grid-template-columns:1fr;gap:6px;padding:16px 18px;font-size:8px;letter-spacing:.08em}
+ .model-flow>i{display:none}
  .model-flow span{gap:4px}
 }
