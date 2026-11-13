@@ -219,6 +219,7 @@ h1 span,
 
 .stage.active {
     opacity: 1;
+    pointer-events: auto;
 }
 
 .stage small {
@@ -424,6 +425,7 @@ h1 span,
     color: white;
     padding: 14px 15px;
     font: inherit;
+    font-size: 16px;
     outline: none;
 }
 
@@ -979,6 +981,11 @@ img {
 .timeline-cta{margin-top:2px}
 .optional{color:#6f7b8c;font-weight:400}
 .model-disclaimer{font-size:6px;line-height:1.35;color:#586272;margin:-9px 2px 0;letter-spacing:.01em}
+
+@media (min-width: 761px) and (max-width: 1100px) {
+ .model-source{grid-template-columns:minmax(0,1fr)}
+ .model-source-copy{position:relative!important;top:auto}
+}
 
 @media(max-width:760px){
  .menu-toggle{display:grid;place-content:center;gap:5px;width:44px;height:44px;margin-left:auto;padding:0;border:0;background:transparent;cursor:pointer;z-index:72}

@@ -1,0 +1,40 @@
+name: Review build and browser tests
+on:
+  push:
+    branches: [fix/review-preview]
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check app.js
+      - run: pip install playwright==1.65.1
+      - run: python -m playwright install --with-deps chromium
+      - run: python scripts/build-preview.py --sha "$GITHUB_SHA"
+      - name: Browser regression tests against built artifact
+        run: |
+          python -m http.server 8765 --bind 127.0.0.1 --directory dist > /tmp/heroprint-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID"' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:8765/ > /dev/null; then break; fi
+            sleep 1
+          done
+          python -m unittest discover -s tests -p '*_test.py' -v
+      - uses: actions/upload-artifact@v4
+        with:
+          name: heroprint-preview-${{ github.sha }}
+          path: dist
+          include-hidden-files: true
+          retention-days: 14
